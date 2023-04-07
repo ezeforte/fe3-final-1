@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
-//import { useGlobaStates } from '../Context/Context'
+
 
 
 const Card = ({ name, username, id }) => {
@@ -17,11 +17,12 @@ const Card = ({ name, username, id }) => {
 
       {/* Ademas deberan integrar la logica para guardar cada Card en el localStorage */}
 
-      <Link key={id} to={`dentist/${id}`} >
+      <Link key={id} to={`details/${id}`} >
 
-      <img src="/public/images/doctor.jpg" alt='' />
-        <p>{name}</p>
-        <p>{username} ID: {id} </p>
+      <img src="./images/doctor.jpg" alt='DR-logo' />
+        
+      <p class="bold-text">{name}</p>
+        <p>{username}</p>
 
       </Link>
 

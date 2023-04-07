@@ -31,10 +31,14 @@ p{
   text-align: center;
 }
 
-nav{
+.bold-text {
+  font-weight: bold;
+}
+
+nav {
   display: flex;
-  width: 80vw;
-  justify-content: flex-start;
+  width: 90vw;
+  justify-content: flex-end;
   padding: 1rem;
 }
 
@@ -95,6 +99,7 @@ form{
   width: 200px;
   padding: 0.5rem 0.5rem 0 0.5rem;
   border: 0.5px solid rgb(136, 136, 136);
+  border-radius: 10px;
 }
 
 .card:hover{
