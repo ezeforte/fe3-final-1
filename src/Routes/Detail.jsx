@@ -1,6 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useContext } from 'react'
+import ThemeContext from '../Components/utils/Context'
 
 //Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 
@@ -21,28 +23,42 @@ const Detail = () => {
     getDetails();
   }, []);
 
+  const context = useContext(ThemeContext);
+  const theme = context.theme
 
   return (
-    <>
-      <h1>Detail Dentist id </h1>
+    <div style={{background: theme.background, color: theme.font}}>
+      <h1>Detalle dentista N°: {id} </h1>
       {/* aqui deberan renderizar la informacion en detalle de un user en especifico */}
       {/* Deberan mostrar el name - email - phone - website por cada user en especifico */}
 
-      <div>
-        <img src="./images/doctor.jpg" alt='DR-logo' />
+      <table>
+  <thead>
+    <tr>
+      <th>Apellido</th>
+      <th>Nombre</th>
+      <th>Email</th>
+      <th>Teléfono</th>
+      <th>Web</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{details.name}</td>
+      <td>{details.username}</td>
+      <td>{details.email}</td>
+      <td>{details.phone}</td>
+      <td>{details.website}</td>
+    </tr>
+    </tbody>
 
-        <p class="bold-text">{details.name}</p>
-        <p>{details.username}</p>
-        <p>{details.email}</p>
-        <p>{details.phone}</p>
-        <p>{details.website}</p>
 
-      </div>
+    </table>
 
 
 
 
-    </>
+    </div>
   )
 }
 
