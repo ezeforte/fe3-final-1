@@ -25,7 +25,7 @@ export const themes = {
 const localValue = JSON.parse(localStorage.getItem('theme'));
 
 function App() {
-    const [theme, setTheme] = useState(localValue ?? themes.light);
+    const [theme, setTheme] = useState(localValue ?? themes.light );
 
     const handleChangeTheme = () => {
         theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark);
@@ -35,29 +35,26 @@ function App() {
     const [users, setUsers] = useState([]);
 
     const getUsers = async () => {
-        fetch(`https://jsonplaceholder.typicode.com/users`)
-            .then(res => res.json())
-            .then(json => setUsers(json))
-
+      fetch(`https://jsonplaceholder.typicode.com/users`)
+              .then(res=>res.json())
+              .then(json=>setUsers(json))
+  
     };
-
-
+  
+    
     useEffect(() => {
-        getUsers();
-
+      getUsers();
+      
     }, []);
 
-
-
-
     useEffect(() => {
-        localStorage.setItem('theme', JSON.stringify(theme));
+        localStorage.setItem('theme',JSON.stringify(theme));
 
-    }, [theme]);
-
+    },[theme]);
+    
     return (
 
-        <ThemeContext.Provider value={{ theme, handleChangeTheme, users,}} >
+        <ThemeContext.Provider value={{theme,handleChangeTheme,users}} >
             <BrowserRouter>
                 <Navbar />
                 <Routes>
