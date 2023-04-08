@@ -17,7 +17,10 @@ const Detail = () => {
       .then(res => res.json())
       .then(json => setDetails(json))
   };
+
+  
   // Consumiendo el parametro dinamico de la URL deberan hacer un fetch a un user en especifico
+
 
   useEffect(() => {
     getDetails();
