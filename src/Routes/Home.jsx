@@ -8,25 +8,6 @@ import ThemeContext from '../Components/utils/Context'
 
 const Home = () => {
 
-  const [users, setUsers] = useState([]);
-  
-
-
-  const getUsers = async () => {
-    fetch(`https://jsonplaceholder.typicode.com/users`)
-            .then(res=>res.json())
-            .then(json=>setUsers(json))
-
-  };
-
-  
-
-  useEffect(() => {
-    getUsers();
-    
-  }, []);
-
-
   
     
   const context = useContext(ThemeContext);
@@ -42,7 +23,7 @@ const Home = () => {
       
         <div className='card-grid' style={{background: theme.background, color: theme.font}}>
           {/* Aqui deberias renderizar las cards */
-            users.map((user) => (
+            context.users.map((user) => (
               <Card name={user.name} username={user.username} id={user.id}/>
               
             ))}

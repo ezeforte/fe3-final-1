@@ -7,7 +7,7 @@ import Home from "./Routes/Home";
 import Contact from "./Routes/Contact";
 import Favs from "./Routes/Favs";
 import ThemeContext from "./Components/utils/Context";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 export const themes = {
     light: {
@@ -22,20 +22,42 @@ export const themes = {
 
 };
 
-
+const localValue = JSON.parse(localStorage.getItem('theme'));
 
 function App() {
-    const [theme, setTheme] = useState(themes.dark);
+    const [theme, setTheme] = useState(localValue ?? themes.light);
 
     const handleChangeTheme = () => {
         theme === themes.dark ? setTheme(themes.light) : setTheme(themes.dark);
 
     };
 
+    const [users, setUsers] = useState([]);
+
+    const getUsers = async () => {
+        fetch(`https://jsonplaceholder.typicode.com/users`)
+            .then(res => res.json())
+            .then(json => setUsers(json))
+
+    };
+
+
+    useEffect(() => {
+        getUsers();
+
+    }, []);
+
+
+
+
+    useEffect(() => {
+        localStorage.setItem('theme', JSON.stringify(theme));
+
+    }, [theme]);
 
     return (
 
-        <ThemeContext.Provider value={{theme,handleChangeTheme}} >
+        <ThemeContext.Provider value={{ theme, handleChangeTheme, users,}} >
             <BrowserRouter>
                 <Navbar />
                 <Routes>
