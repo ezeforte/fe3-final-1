@@ -6,12 +6,28 @@ import ThemeContext from '../Components/utils/Context'
 
 
 const Card = ({ name, username, id }) => {
+  
+ 
+const localValue = JSON.parse(localStorage.getItem('favs'));
 
-  const addFav = () => {
-    // Aqui iria la logica para agregar la Card en el localStorage
+const [favs, setFavs] = useState(localValue ?? []);
+
+const addFav = () => {
+  const newFav = { name, username, id };
+  if (!favs.find((item) => item.id === newFav.id)) {
+    const updatedFavs = [...favs, newFav];
+    setFavs(updatedFavs);
+    localStorage.setItem('favs', JSON.stringify(updatedFavs));
   }
-  const context = useContext(ThemeContext);
-  const theme = context.theme
+}
+
+const context = useContext(ThemeContext);
+const theme = context.theme;
+
+useEffect(() => {
+  localStorage.setItem('favs', JSON.stringify(favs));
+}, [favs]);
+
   return (
     <div className="card" >
       {/* En cada card deberan mostrar en name - username y el id */}
@@ -29,7 +45,7 @@ const Card = ({ name, username, id }) => {
 
       </Link>
 
-      <button onClick={addFav} className="favButton" style={{background: theme.background, color: theme.font}}>Add fav ⭐</button>
+      <button onClick={addFav} >Add fav </button>
     </div>
   );
 };
