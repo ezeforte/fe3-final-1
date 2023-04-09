@@ -26,7 +26,7 @@ const Home = () => {
         <div className='card-grid' style={{background: theme.background, color: theme.font}}>
           {/* Aqui deberias renderizar las cards */
             context.users.map((user) => (
-              <Card name={user.name} username={user.username} id={user.id}/>
+              <Card key={user.id} name={user.name} username={user.username} id={user.id}/>
               
             ))}
         </div>
