@@ -1,32 +1,41 @@
 import { Link, NavLink } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
-import { useContext } from 'react'
+import { useContext,useReducer } from 'react'
 import ThemeContext from '../Components/utils/Context'
+
 
 
 
 const Card = ({ name, username, id }) => {
   
  
-const localValue = JSON.parse(localStorage.getItem('favs'));
+  const localValue = JSON.parse(localStorage.getItem('favs'));
 
-const [favs, setFavs] = useState(localValue ?? []);
-
-const addFav = () => {
-  const newFav = { name, username, id };
-  if (!favs.find((item) => item.id === newFav.id)) {
-    const updatedFavs = [...favs, newFav];
-    setFavs(updatedFavs);
-    localStorage.setItem('favs', JSON.stringify(updatedFavs));
+  const [favs, dispatch] = useReducer(favsReducer, localValue ?? []);
+  
+  const addFav = () => {
+    const newFav = { name, username, id };
+    if (!favs.find((item) => item.id === newFav.id)) {
+      dispatch({ type: 'ADD_FAV', payload: newFav });
+    }
   }
-}
-
-const context = useContext(ThemeContext);
-const theme = context.theme;
-
-useEffect(() => {
-  localStorage.setItem('favs', JSON.stringify(favs));
-}, [favs]);
+  
+  const context = useContext(ThemeContext);
+  const theme = context.theme;
+  
+  useEffect(() => {
+    localStorage.setItem('favs', JSON.stringify(favs));
+  }, [favs]);
+  
+  // Reducer function
+  function favsReducer(state, action) {
+    switch (action.type) {
+      case 'ADD_FAV':
+        return [...state, action.payload];
+      default:
+        return state;
+    }
+  }
 
   return (
     <div className="card" >
