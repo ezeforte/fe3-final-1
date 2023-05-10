@@ -27,7 +27,7 @@ const Card = ({ name, username, id }) => {
     localStorage.setItem('favs', JSON.stringify(favs));
   }, [favs]);
   
-  // Reducer function
+  
   function favsReducer(state, action) {
     switch (action.type) {
       case 'ADD_FAV':
